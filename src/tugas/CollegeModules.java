@@ -43,10 +43,10 @@ public class CollegeModules extends JFrame {
                 setEnableStudentForm(false);
 
                 String name = inputNama.getText();
-                int id = (int) spinnerTanggalLahir.getValue();
+                int dob = (int) spinnerTanggalLahir.getValue();
                 String major = sistemInformasiRadioButton.isSelected() ? "Sistem Informasi" : "Teknik Informatika";
                 int nim = Integer.parseInt(inputNim.getText());
-                Mahasiswa mahasiswa = new Mahasiswa(name, id, major, nim);
+                Mahasiswa mahasiswa = new Mahasiswa(name, 1, major, nim, dob);
 
                 if (mahasiswaList.stream().anyMatch(m -> m.getNim() == nim)) {
                     JOptionPane.showMessageDialog(this, "NIM sudah terdaftar, silahkan masukkan NIM lain");
@@ -111,13 +111,14 @@ public class CollegeModules extends JFrame {
     }
 
     public void viewDataStudent() {
-        String[] columnNames = {"NIM", "Nama", "Jurusan"};
-        Object[][] data = new Object[mahasiswaList.size()][3];
+        String[] columnNames = {"NIM", "Nama", "Jurusan", "Tanggal Lahir"};
+        Object[][] data = new Object[mahasiswaList.size()][4];
         for (int i = 0; i < mahasiswaList.size(); i++) {
             Mahasiswa mahasiswa = mahasiswaList.get(i);
             data[i][0] = mahasiswa.getNim();
             data[i][1] = mahasiswa.getName();
             data[i][2] = mahasiswa.getMajor();
+            data[i][3] = mahasiswa.getDateOfBirth();
         }
         tableList.setModel(new DefaultTableModel(data, columnNames));
     }
